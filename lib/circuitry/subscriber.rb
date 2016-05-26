@@ -32,7 +32,7 @@ module Circuitry
       self.subscribed = false
       self.queue = Queue.find(Circuitry.subscriber_config.queue_name).url
 
-      %i[lock async timeout wait_time batch_size].each do |sym|
+      [:lock, :async, :timeout, :wait_time, :batch_size].each do |sym|
         send(:"#{sym}=", options[sym])
       end
 

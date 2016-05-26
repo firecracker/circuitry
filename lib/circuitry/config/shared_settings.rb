@@ -8,6 +8,7 @@ module Circuitry
       def self.included(base)
         base.attribute :access_key, String
         base.attribute :secret_key, String
+        base.attribute :stub_responses, Object, default: false
         base.attribute :region, String, default: 'us-east-1'
         base.attribute :logger, Logger, default: Logger.new(STDERR)
         base.attribute :error_handler
@@ -23,11 +24,12 @@ module Circuitry
       end
 
       def aws_options
-        {
-          access_key_id:     access_key,
-          secret_access_key: secret_key,
-          region:            region
-        }
+          @aws_options = {
+            access_key_id:     access_key,
+            secret_access_key: secret_key,
+            region:            region,
+            stub_responses: stub_responses
+          }
       end
 
       def validate_setting(value, permitted_values)
