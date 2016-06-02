@@ -10,9 +10,9 @@ module Circuitry
       attr_reader :visibility_timeout
 
       def self.find_or_create(queue_name,
-                              dead_letter_queue_name: nil,
-                              max_receive_count: 8,
-                              visibility_timeout: 30 * 60)
+                              dead_letter_queue_name,
+                              max_receive_count=8,
+                              visibility_timeout=30 * 60)
         creator = new(queue_name, visibility_timeout)
         result = creator.create_queue
         creator.create_dead_letter_queue(dead_letter_queue_name, max_receive_count) if dead_letter_queue_name
