@@ -78,7 +78,7 @@ module Circuitry
 
     def can_publish?
       Circuitry.publisher_config.aws_options.values.all? do |value|
-        !value.nil? && !value.empty?
+        !value.nil? #&& !value.empty?
       end
     end
 
